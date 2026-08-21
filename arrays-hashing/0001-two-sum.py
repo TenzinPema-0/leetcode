@@ -11,20 +11,15 @@ class Solution(object):
         :rtype: List[int]
         """
         
-        newNums = {}
         seen = {}
-        for i in range(len(nums)):
-            if nums[i] < target:
-                newNums[nums[i]] =  i
-
+        
         numsToReturn = [0,0]
-        print(newNums)
-
-        for i, num in enumerate(nums):
-            complement = target - num
-            if complement in seen:
-                return [seen[complement],i]
-            seen[num] = i
+        for index, value in enumerate(nums):
+            otherNum = target - value
+            if otherNum in seen:
+                numsToReturn[0] = index
+                numsToReturn[1] = seen[otherNum]
+            seen[value] = index
         return numsToReturn
 
             

@@ -1,0 +1,38 @@
+# 347 Top K Frequest Elements: create bucket list with len(nums) + 1 size -> go through counts
+# -> store count as index, num as value in a separate list -> loop backwards in new list
+# and insert value into result list, stop when len of result list == k
+# bucketing sort great for when you know what index values you will be using as well as
+# the range
+# Tell: ranking by a bounded integer (count, score, age)
+# -> use it as an index instead of sorting
+
+
+
+
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        
+        counts = {}
+        for i in range(len(nums)):
+            if nums[i] in counts:
+                counts[nums[i]] += 1
+                
+            else:
+                counts[nums[i]] = 1
+            
+        freq =  [[] for i in range(len(nums) + 1)]
+
+        for num,cnt in counts.items():
+            freq[cnt].append(num)
+        res = []
+        
+        for i in range(len(freq) - 1, 0, -1):
+            for num in freq[i]:
+                res.append(num)
+                if len(res) == k:
+                    return res
